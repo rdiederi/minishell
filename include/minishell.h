@@ -6,7 +6,7 @@
 /*   By: rdiederi <rdiederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 15:57:12 by rdiederi          #+#    #+#             */
-/*   Updated: 2018/09/17 16:22:21 by rdiederi         ###   ########.fr       */
+/*   Updated: 2018/09/18 19:01:59 by rdiederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,21 @@
 # define MAXLIST 100
 # define CLEAR() ft_printf("\033[H\033[J")
 
-int		main(int argc, char **argv, char **env);
-int		own_cmd_handler(char **parsed);
-void	exec_args_piped(char **parsed, char **parsed_pipe);
-void	exec_args(char **parsed);
-int		process_string(char *str, char **parsed, char **parsed_pipe);
-void	open_help(void);
-void	print_dir(void);
-void	print_d_arr(char **arr);
-int		init_env(char **old_emv);
+typedef struct	s_mini_flags
+{
+	int	n_cmd;
+}				t_mini_flags;
+
+int				main(int argc, char **argv, char **env);
+int				own_cmd_handler(char **parsed, char **env);
+void			exec_args_piped(char **parsed, char **parsed_pipe);
+void			exec_args(char **parsed);
+int				process_string(char *str, char **parsed, char **parsed_pipe,
+								char **env);
+void			open_help(void);
+void			print_dir(void);
+void			print_d_arr(char **arr);
+char			**init_env(char **old_env, char	**new_env);
+// int				set_env(char **parsed, char **env);
 
 #endif

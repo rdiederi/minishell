@@ -6,7 +6,7 @@
 /*   By: rdiederi <rdiederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 16:04:04 by rdiederi          #+#    #+#             */
-/*   Updated: 2018/09/17 16:49:26 by rdiederi         ###   ########.fr       */
+/*   Updated: 2018/09/18 18:07:01 by rdiederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	init_shell(void)
 	CLEAR();
 }
 
-void	print_dir(void)
+void		print_dir(void)
 {
 	char cwd[1024];
 
@@ -31,7 +31,7 @@ void	print_dir(void)
 	ft_printf("\nDir: %s\n", cwd);
 }
 
-void	open_help(void)
+void		open_help(void)
 {
 	ft_printf("******************"
 		"****************************\n");
@@ -42,6 +42,9 @@ void	open_help(void)
 		"\n>ls"
 		"\n>echo"
 		"\n>pwd"
+		"\n>env"
+		"\n>setenv"
+		"\n>unsetenv"
 		"\n>exit"
 		"\n>improper space handling");
 	ft_printf("\n******************"
@@ -49,20 +52,18 @@ void	open_help(void)
 	return ;
 }
 
-int		main(int argc, char **argv, char **env)
+int			main(int argc, char **argv, char **env)
 {
 	char	*input_string;
 	char	*parsed_args[MAXLIST];
 	char	*parsed_args_piped[MAXLIST];
 	int		exec_flag;
+	char	**m_env;
 
-	env = NULL;
 	exec_flag = 0;
 	if (argv && argc > 1)
 		return (0);
-	print_d_arr(env);
-	// if (!(init_env(env)))
-	// 	return (0);
+	m_env = init_env(env, m_env);
 	init_shell();
 	while (1)
 	{
@@ -70,12 +71,9 @@ int		main(int argc, char **argv, char **env)
 		if (!(get_next_line(0, &input_string)))
 			continue;
 		exec_flag = process_string(input_string,
-		parsed_args, parsed_args_piped);
+		parsed_args, parsed_args_piped, m_env);
 		if (exec_flag == 1)
 			exec_args(parsed_args);
-		// print_d_arr(parsed_args);
-		if (exec_flag == 2)
-			exec_args_piped(parsed_args, parsed_args_piped);
 	}
-    return 0;
+	return (0);
 }
