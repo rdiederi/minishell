@@ -6,7 +6,7 @@
 /*   By: rdiederi <rdiederi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 15:57:12 by rdiederi          #+#    #+#             */
-/*   Updated: 2018/09/18 19:01:59 by rdiederi         ###   ########.fr       */
+/*   Updated: 2018/09/19 16:58:31 by rdiederi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,23 @@
 # define MAXLIST 100
 # define CLEAR() ft_printf("\033[H\033[J")
 
+char			**g_env;
+
 typedef struct	s_mini_flags
 {
 	int	n_cmd;
 }				t_mini_flags;
 
-int				main(int argc, char **argv, char **env);
-int				own_cmd_handler(char **parsed, char **env);
+int				own_cmd_handler(char **parsed);
 void			exec_args_piped(char **parsed, char **parsed_pipe);
 void			exec_args(char **parsed);
-int				process_string(char *str, char **parsed, char **parsed_pipe,
-								char **env);
+int				process_string(char *str, char **parsed);
 void			open_help(void);
 void			print_dir(void);
-void			print_d_arr(char **arr);
-char			**init_env(char **old_env, char	**new_env);
+int				arr_len(char **arr);
+void			print_d_arr();
+void			init_env(char **old_env);
+int				unset_env(char **parsed);
 // int				set_env(char **parsed, char **env);
 
 #endif
